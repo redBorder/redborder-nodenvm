@@ -1,0 +1,2 @@
+umask u=rwx,g=rwx,o=rx
+nvm_path="/usr/lib/nvm"
