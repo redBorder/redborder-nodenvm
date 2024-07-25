@@ -25,6 +25,7 @@ archive: SOURCES
 build_prepare: archive
 	mkdir -p $(RESULT_DIR)
 	rm -f $(RESULT_DIR)/$(PACKAGE_NAME)*.rpm
+	env NVM_VERSION=$(NVM_VERSION) NODE_VERSION=$(NODE_VERSION) ./download_modules.sh;
 
 srpm: build_prepare
 	/usr/bin/mock \
