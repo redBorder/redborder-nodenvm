@@ -9,7 +9,9 @@ MOCK_CONFIG?= default
 RESULT_DIR?= pkgs
 
 NVM_VERSION?= 0.39.1
+
 NODE_VERSION?= 16.13.0
+
 NVM_DIR?= /usr/lib/nvm
 
 all: rpm
@@ -25,16 +27,17 @@ archive: SOURCES
 build_prepare: archive
 	mkdir -p $(RESULT_DIR)
 	rm -f $(RESULT_DIR)/$(PACKAGE_NAME)*.rpm
-	env NVM_VERSION=$(NVM_VERSION) NODE_VERSION=$(NODE_VERSION) ./download_modules.sh;
+	env NVM_VERSION=$(NVM_VERSION) NODE_VERSION=$(NODE_VERSION) 
+	./download_modules.sh;
 
 srpm: build_prepare
 	/usr/bin/mock \
 		-r $(MOCK_CONFIG) \
 		--define "__version $(VERSION)" \
 		--define "__release $(BUILD_NUMBER)" \
-		--define "__nvm_dir $(NVM_DIR)" \
 		--define "__nvmversion $(NVM_VERSION)" \
 		--define "__nodeversion $(NODE_VERSION)" \
+		--define "__nvm_dir $(NVM_DIR)" \
 		--resultdir=$(RESULT_DIR) \
 		--buildsrpm \
 		--spec=${PACKAGE_NAME}.spec \
@@ -46,9 +49,9 @@ rpm: srpm
 		-r $(MOCK_CONFIG) \
 		--define "__version $(VERSION)"\
 		--define "__release $(BUILD_NUMBER)"\
-		--define "__nvm_dir $(NVM_DIR)" \
 		--define "__nvmversion $(NVM_VERSION)" \
 		--define "__nodeversion $(NODE_VERSION)" \
+		--define "__nvm_dir $(NVM_DIR)" \
 		--resultdir=$(RESULT_DIR) \
 		--rebuild $(RESULT_DIR)/$(PACKAGE_NAME)*.src.rpm
 	@echo "======= Binary RPMs now available in $(RESULT_DIR) ======="

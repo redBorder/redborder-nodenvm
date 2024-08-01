@@ -2,7 +2,7 @@
 
 NVM_VERSION=${NVM_VERSION:="0.39.1"}
 NODE_VERSION=${NODE_VERSION:="16.13.0"}
-NVM_DIR=${NVM_DIR:="/usr/lib/nvm"}
+NVM_DIR=${NVM_DIR:="root/.nvm"}
 
 mkdir -p SOURCES
 
